@@ -13,6 +13,7 @@ class LabClinicasCoreConfig extends StatelessWidget {
     this.pagesBuilders,
     this.modules,
     required this.title,
+    this.didStart,
   });
 
   final ApplicationBindings? bindings;
@@ -20,6 +21,7 @@ class LabClinicasCoreConfig extends StatelessWidget {
   final List<FlutterGetItPageBuilder>? pagesBuilders;
   final List<FlutterGetItModule>? modules;
   final String title;
+  final VoidCallback? didStart;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +31,8 @@ class LabClinicasCoreConfig extends StatelessWidget {
       pages: [...pages ?? [], ...pagesBuilders ?? []],
       modules: modules,
       builder: (context, routes, flutterGetItNavObserver) {
+        if (didStart != null) didStart!();
+
         return AsyncStateBuilder(
           loader: LabClinicasLoader(),
           builder: (navigaotrObserver) {
